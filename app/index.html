@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="cursor-none">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Three?</title>
 </head>
-<body>
+<body class="bg-orange-200">
     <canvas id="root"></canvas>
+    <div id="cursor" class="w-3 h-3 bg-white fixed left-0 rounded-full pointer-events-none"></div>
+    <div class="fixed top-0 left-0 right-0 bottom-0 w-full h-full overflow-hidden pointer-events-none flex items-center justify-center">
+        <div id="box" class="absolute h-4/5 w-2/5 pointer-events-auto"></div>
+    </div>
 </body>
 </html>

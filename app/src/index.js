@@ -1,56 +1,23 @@
 import '../styles.css';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import animate from "./one";
 
-const canvas = document.getElementById('root');
+const cursor = document.getElementById('cursor');
+const boxArea = document.getElementById('box');
 
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-};
-
-const scene = new THREE.Scene();
-
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
-camera.position.set(3, 3, 3);
-scene.add(camera);
-
-const mesh = new THREE.Mesh(
-    new THREE.BoxGeometry(), 
-    new THREE.MeshBasicMaterial()
-);
-scene.add(mesh);
-
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true;
-
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+window.addEventListener('mousemove', e => {
+    cursor.style.top = e.clientY - cursor.clientHeight / 2 + 'px';
+    cursor.style.left = e.clientX - cursor.clientWidth / 2 + 'px';
 });
-renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-let lastTime = 0;
+boxArea.addEventListener('mouseenter', e => {
+    console.log('mouse enter');
+    cursor.style.width = '2rem';
+    cursor.style.height = '2rem';
+});
 
-const animate = timeStamp => {
-    const deltaTime = timeStamp - lastTime;
-    lastTime = timeStamp;
-
-    controls.update();
-
-    renderer.render(scene, camera);
-    requestAnimationFrame(animate);
-};
+boxArea.addEventListener('mouseleave', e => {
+    cursor.style.width = '0.75rem';
+    cursor.style.height = '0.75rem';
+})
 
 animate();
-
-window.addEventListener('resize', () => {
-    sizes.width = window.innerWidth;
-    sizes.height = window.innerHeight;
-
-    camera.aspect = sizes.width / sizes.height;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(sizes.width, sizes.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-});
